@@ -63,27 +63,22 @@ The chosen model is a **MaskedTransformer**, a transformer-based neural network 
 
 ### Why This Architecture Was Chosen
 
-   Though flow based or VAE are enogh for this task, The transformers architeure being choosen to demonstrate the core undertanding of the architure. Although the below mentioned functionalies of transformer do help addressing the task with efficiency in a way.
+   -  Though flow-based models or Variational Autoencoders (VAEs) are sufficient for this task, the Transformer architecture was chosen to demonstrate a deeper understanding of its core principles and applicability. The unique features of the Transformer provide additional advantages for addressing this task efficiently
 
-1. **Handling Sparse Data:**
-   - The positional encoding and masking mechanisms make the transformer effective for irregular datasets like sparse images.
+   -  The MaskedTransformer was selected for its ability to handle the unique challenges of sparse, high-dimensional data, such as the (`x`, `y`, `r`, `g`, `b`).input points. The model starts by embedding the input into a higher-dimensional space `(embed_dim=128)`using a linear layer, enabling the representation of spatial and color relationships. A learned positional encoding is added, providing spatial context to the embeddings, which is crucial for sparse datasets with irregular patterns. The Transformer Encoder, comprising four layers `(num_layers=4)` and four attention heads `(num_heads=4)`, leverages multi-head attention to capture complex dependencies between spatial and color features. The masking mechanism further refines this by ensuring the model focuses on relevant sequence elements, reducing noise and improving efficiency during training.
 
-2. **Modularity:**
-   - The architecture separates input encoding, positional information, and output generation, making it easy to adapt or extend.
-
-3. **Focus on Relationships:**
-   - Attention heads allow the model to understand complex interactions between position (`x, y`) and color (`r, g, b`).
+    - The output layers are modular, with dedicated linear layers for each dimension `(x, y, r, g, b)`. For color values `(r, g, b)`, sigmoid activation constrains outputs to the valid range [0, 1]. This modular design ensures accurate and interpretable predictions for each feature. The loss function is carefully designed to weight spatial (x, y) and color features (r, g, b) differently, emphasizing color accuracy.
 
 ## Evaluation Results
 
 The model's performance was evaluated through:
 
 - **Similarity Metrics:** 
-  - **Maximum Mean Discrepancy (MMD):** Measures how close the generated points are to the real ones.
-  - **KL Divergence:** Compares distributions for each dimension (`x`, `y`).
-  - **Wasserstein Distance:** Measures the overall difference between distributions.
+  - **Maximum Mean Discrepancy (MMD):** Captures global similarity and ensures the generated data follows the overall distribution.
+  - **KL Divergence:** Provides detailed insights into the alignment of individual dimensions, focusing on specific features like spatial accuracy.
+  - **Wasserstein Distance:**  Evaluates the geometric alignment, highlighting how well the model minimizes positional and color discrepancies.
 
-    AS of the provided model: 
+    As of the provided model: 
         MMD: 0.0019
         KL Divergence: x=0.0858, y=0.0534
         Wasserstein Distances: x: 0.008623, y: 0.003177, r: 0.006073, g: 0.004483, b: 0.011655
