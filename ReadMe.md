@@ -59,9 +59,9 @@ The model's performance was evaluated through:
   - **Wasserstein Distance:**  Evaluates the geometric alignment, highlighting how well the model minimizes positional and color discrepancies.
 
     As of the provided model: 
-        MMD: 0.0019
-        KL Divergence: x=0.0858, y=0.0534
-        Wasserstein Distances: x: 0.008623, y: 0.003177, r: 0.006073, g: 0.004483, b: 0.011655
+    - MMD: 0.0019
+    - KL Divergence: x=0.0858, y=0.0534
+    - Wasserstein Distances: x: 0.008623, y: 0.003177, r: 0.006073, g: 0.004483, b: 0.011655
 
 
 - **Visual Analysis:**
