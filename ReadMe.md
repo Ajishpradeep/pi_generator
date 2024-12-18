@@ -40,7 +40,7 @@ The model should learn the data distribution and generate similar points for the
 
 ## Model Architecture
 
-The chosen model is a **MaskedTransformer**, a transformer-based neural network designed to handle high-dimensional sequential data. 
+The chosen model is a **MaskedTransformer**, a transformer-based neural network to handle high-dimensional sequential data. 
 
 ### Architecture Details
 
