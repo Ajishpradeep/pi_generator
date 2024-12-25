@@ -156,6 +156,7 @@ dependencies:
   - openjpeg=2.5.2
   - openldap=2.6.4
   - openssl=3.4.0
+  - packaging=24.2
   - pango=1.50.7
   - pcre2=10.42
   - pillow=11.0.0

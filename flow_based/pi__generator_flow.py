@@ -16,4 +16,5 @@ if __name__ == "__main__":
 
     flow = RealNVP(dim=5, num_layers=6, hidden_dim=256).to(device)
     train_flow(flow, dataloader, device, epochs=50, lr=1e-3)
+    print("==========Evaluating the model===========")
     evaluate_flow(flow, real_data, device=device)

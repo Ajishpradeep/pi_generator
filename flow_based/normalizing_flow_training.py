@@ -35,7 +35,7 @@ def train_flow(flow, dataloader, device, epochs=50, lr=1e-3):
         torch.save(flow.state_dict(), os.path.join(model_dir, "best_flow.pth"))
 
 def evaluate_flow(flow, real_data, device):
-    flow.load_state_dict(torch.load(os.path.join("model", "best_flow.pth"), map_location=device))
+    flow.load_state_dict(torch.load(os.path.join("model", "best_flow.pth"), map_location=device,weights_only=True))
     flow.eval()
 
     with torch.no_grad():

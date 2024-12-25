@@ -32,7 +32,7 @@ This repository includes two distinct approaches for achieving this objective:
    ```
 3. Install the required Python packages:
    ```bash
-   pip install -r requirements.txt
+   conda env create -f environment.yml
    ```
 
 ---
