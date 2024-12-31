@@ -1,18 +1,19 @@
 import torch
 import os
-from visualization import *
-
+from visualization import plot_dimwise_histograms, plot_pairwise_scatter, pca_scatter_plot, save_points_as_image, compute_mmd, compute_kl_divergence, compute_wasserstein
 
 def logit_transform(x, lam=1e-6):
     x = lam + (1 - 2 * lam) * x
     return torch.log(x) - torch.log(1 - x)
 
+
 def inv_logit_transform(u, lam=1e-6):
     return (torch.sigmoid(u) - lam) / (1 - 2 * lam)
 
+
 def train_flow(flow, dataloader, device, epochs=50, lr=1e-3):
     model_dir = "model"
-    os.makedirs(model_dir, exist_ok=True) 
+    os.makedirs(model_dir, exist_ok=True)
     optimizer = torch.optim.Adam(flow.parameters(), lr=lr)
     flow.train()
     losses = []
@@ -34,8 +35,15 @@ def train_flow(flow, dataloader, device, epochs=50, lr=1e-3):
         print(f"Epoch [{epoch + 1}/{epochs}], Loss: {avg_loss:.4f}")
         torch.save(flow.state_dict(), os.path.join(model_dir, "best_flow.pth"))
 
+
 def evaluate_flow(flow, real_data, device):
-    flow.load_state_dict(torch.load(os.path.join("model", "best_flow.pth"), map_location=device,weights_only=True))
+    flow.load_state_dict(
+        torch.load(
+            os.path.join("model", "best_flow.pth"),
+            map_location=device,
+            weights_only=True,
+        )
+    )
     flow.eval()
 
     with torch.no_grad():
@@ -45,8 +53,8 @@ def evaluate_flow(flow, real_data, device):
         gen_x = torch.clamp(gen_x, 0.0, 1.0)
     gen_data = gen_x.cpu().numpy()
 
-    plot_dimwise_histograms(real_data, gen_data, dim_labels=['x', 'y', 'r', 'g', 'b'])
-    plot_pairwise_scatter(real_data, gen_data, indices=(0, 1), dim_labels=['x', 'y'])
+    plot_dimwise_histograms(real_data, gen_data, dim_labels=["x", "y", "r", "g", "b"])
+    plot_pairwise_scatter(real_data, gen_data, indices=(0, 1), dim_labels=["x", "y"])
     pca_scatter_plot(real_data, gen_data)
     save_points_as_image(gen_data, img_size=300)
 

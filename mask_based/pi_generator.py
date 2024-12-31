@@ -6,12 +6,13 @@ from torch.utils.data import DataLoader
 import torch.nn as nn
 import torch.optim as optim
 
+
 def main():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     image_path = "sparse_pi_colored.jpg"
     xs_path = "pi_xs.npy"
     ys_path = "pi_ys.npy"
-    
+
     real_data = create_dataset_from_npy(image_path, xs_path, ys_path)
     dataset = ColoredPIDataset(real_data)
     dataloader = DataLoader(dataset, batch_size=64, shuffle=True)
@@ -26,6 +27,7 @@ def main():
     # Evaluation
     print("==========Evaluating the model===========")
     evaluate_model(dataset, real_data, device)
+
 
 if __name__ == "__main__":
     main()

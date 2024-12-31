@@ -1,4 +1,3 @@
-import os
 import torch
 from data_processing import create_dataset_from_npy, ColoredPIDataset
 from torch.utils.data import DataLoader
@@ -10,7 +9,9 @@ if __name__ == "__main__":
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-    real_data = create_dataset_from_npy("sparse_pi_colored.jpg", "pi_xs.npy", "pi_ys.npy")
+    real_data = create_dataset_from_npy(
+        "sparse_pi_colored.jpg", "pi_xs.npy", "pi_ys.npy"
+    )
     dataset = ColoredPIDataset(real_data)
     dataloader = DataLoader(dataset, batch_size=64, shuffle=True)
 

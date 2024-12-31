@@ -3,6 +3,7 @@ from PIL import Image
 import torch
 from torch.utils.data import Dataset
 
+
 class ColoredPIDataset(Dataset):
     def __init__(self, data):
         self.data = torch.tensor(data, dtype=torch.float32)
@@ -12,6 +13,7 @@ class ColoredPIDataset(Dataset):
 
     def __getitem__(self, idx):
         return self.data[idx]
+
 
 def create_dataset_from_npy(image_path, xs_path, ys_path):
     xs = np.load(xs_path).astype(np.int32)
