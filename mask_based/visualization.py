@@ -4,8 +4,6 @@ from sklearn.decomposition import PCA
 from scipy.stats import wasserstein_distance, entropy
 import seaborn as sns
 import cv2
-from sklearn.decomposition import PCA
-from scipy.stats import entropy, wasserstein_distance
 import os
 
 IMG_SIZE = 300

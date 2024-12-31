@@ -2,8 +2,15 @@ import torch
 import os
 import numpy as np
 from model import MaskedTransformer
-from visualization import plot_dimwise_histograms, plot_pairwise_scatter, pca_scatter_plot, save_points_as_image, compute_mmd, compute_kl_divergence, compute_wasserstein
-
+from visualization import (
+    plot_dimwise_histograms,
+    plot_pairwise_scatter,
+    pca_scatter_plot,
+    save_points_as_image,
+    compute_mmd,
+    compute_kl_divergence,
+    compute_wasserstein,
+)
 
 def train(model, dataloader, criterion, optimizer, device, epochs=10):
     best_loss = float("inf")
